@@ -1,0 +1,40 @@
+﻿@using Formula1.ViewModels
+@model CreateTrackViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    @*<input type="hidden" id="UserId" name="UserId" asp-for="UserId" />*@
+  <div class="form-group">
+    <label asp-for="Name">Name</label>
+    <input asp-for="Name" class="form-control" placeholder="Name">
+    <span asp-validation-for="Name" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Image">Image</label>
+    <input asp-for="Image" class="form-control" placeholder="Image">
+    <span asp-validation-for="Image" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Lenght">Lenght</label>
+    <input asp-for="Lenght" class="form-control" placeholder="Lenght">
+    <span asp-validation-for="Lenght" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Nationality.Country">Country</label>
+    <input asp-for="Nationality.Country" class="form-control" placeholder="Country">
+    <span asp-validation-for="Nationality.Country" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Nationality.Flag">Flag</label>
+    <input asp-for="Nationality.Flag" class="form-control" placeholder="Flag">
+    <span asp-validation-for="Nationality.Flag" class="text-danger"></span>
+  </div>
+    
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  
+  
+  

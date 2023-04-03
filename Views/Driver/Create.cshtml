@@ -1,0 +1,56 @@
+﻿@using Formula1.ViewModels
+@model CreateDriverViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    @*<input type="hidden" id="UserId" name="UserId" asp-for="UserId" />*@
+  <div class="form-group">
+    <label asp-for="FirstName">FirstName</label>
+    <input asp-for="FirstName" class="form-control" placeholder="FirstName">
+    <span asp-validation-for="FirstName" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="LastName">LastName</label>
+    <input asp-for="LastName" class="form-control" placeholder="LastName">
+    <span asp-validation-for="LastName" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Image">Image</label>
+    <input asp-for="Image" class="form-control" placeholder="Image">
+    <span asp-validation-for="Image" class="text-danger"></span>
+  </div>
+   <div class="form-group">
+    <label asp-for="Number">Number</label>
+    <input asp-for="Number" class="form-control" placeholder="Number">
+    <span asp-validation-for="Number" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="TeamId">TeamId</label>
+    <select asp-for="TeamId" class="form-control form-control-lg">
+        <option value="">Select a team</option>
+        @foreach(var item in Model.Teams){
+            <option value="@item.Id">@item.Name</option>
+        }
+                        </select>
+    <span asp-validation-for="TeamId" class="text-danger"></span>
+  </div>
+
+  <div class="form-group">
+    <label asp-for="Nationality.Country">Countriy</label>
+    <input asp-for="Nationality.Country" class="form-control" placeholder="Countriy">
+    <span asp-validation-for="Nationality.Country" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="Nationality.Flag">Flag</label>
+    <input asp-for="Nationality.Flag" class="form-control" placeholder="Flag">
+    <span asp-validation-for="Nationality.Flag" class="text-danger"></span>
+  </div>
+    
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  
+  
+  

@@ -1,0 +1,162 @@
+﻿*@using Formula1.ViewModels
+@*@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Sign up";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <p>
+        <h4>Sign up for a new account</h4>
+        </p>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Sorry!</b> - @TempData["Error"] </span>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Register">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="EmailAddress" class="control-label"></label>
+                        <input asp-for="EmailAddress" class="form-control" />
+                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="control-label"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="btn btn-outline-success float-right" type="submit" value="Sign up" />
+                        <a class="btn btn-outline-secondary" asp-controller="Race" asp-action="Index">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>*@
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Sign up";
+}
+
+<style>
+    .white-box {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10 white-box">
+            <h4 class="text-center mb-4">Sign up for a new account</h4>
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    <span><b>Sorry!</b> - @TempData["Error"] </span>
+                </div>
+            }
+
+            <form asp-action="Register" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="EmailAddress" class="control-label">Email address</label>
+                    <input asp-for="EmailAddress" class="form-control" required />
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label">Password</label>
+                    <input asp-for="Password" class="form-control" required minlength="6" onkeyup="checkPasswordStrength(this.value)" />
+                    @if (ViewData.ModelState["Password"]!=null && ViewData.ModelState["Password"].Errors.Count > 0 && ViewData.ModelState["Password"].Errors[0].ErrorMessage == "The Password field is required.")
+                    {
+                        <span asp-validation-for="Password" class="text-danger">The Password field is required.</span>
+                    }
+                    else if (ViewData.ModelState["Password"]!=null && ViewData.ModelState["Password"].Errors.Count > 0 && ViewData.ModelState["Password"].Errors[0].ErrorMessage == "The Password must be at least 6 characters.")
+                    {
+                        <span asp-validation-for="Password" class="text-danger">The Password must be at least 6 characters.</span>
+                    }
+                    else
+                    {
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    }
+                    <span id="password-strength"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label">Confirm password</label>
+                    <input asp-for="ConfirmPassword" class="form-control" required />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Sign up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function checkPasswordStrength(password) {
+    var strength = document.getElementById('password-strength');
+    var regex = new Array();
+    regex.push("[A-Z]");
+    regex.push("[a-z]");
+    regex.push("[0-9]");
+    regex.push("[@@$!%*?&.,]");
+    var passed = 0;
+    for (var i = 0; i < regex.length; i++) {
+        if (new RegExp(regex[i]).test(password)) {
+            passed++;
+        }
+    }
+    var color = "";
+    var text = "";
+    switch (passed) {
+        case 0:
+        case 1:
+            color = "#dc3545";
+            text = "Weak";
+            break;
+        case 2:
+            color = "#ffc107";
+            text = "Moderate";
+            break;
+        case 3:
+            color = "#ffc107";
+            text = "Moderate";
+            break;
+        case 4:
+            color = "#28a745";
+            text = "Strong";
+            break;
+    }
+    strength.style.color = color;
+    strength.innerHTML = text;
+}
+</script>
+}
+
+
+

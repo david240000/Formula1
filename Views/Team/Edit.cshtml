@@ -1,0 +1,124 @@
+﻿@using Formula1.ViewModels
+@model CreateTeamViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    @*<input type="hidden" id="UserId" name="UserId" asp-for="UserId" />*@
+  <div class="form-group">
+    <label asp-for="Name">Name</label>
+    <input asp-for="Name" class="form-control" placeholder="Name">
+    <span asp-validation-for="Name" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="LogoImageUrl">LogoImageUrl</label>
+    <input asp-for="LogoImageUrl" class="form-control" placeholder="LogoImageUrl">
+    <span asp-validation-for="LogoImageUrl" class="text-danger"></span>
+  </div>
+    
+ 
+   <div class="col-md-12">
+        <table class="table" id="ExpTable">
+            <thead>
+                <tr>
+                    <th>Images</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @for (int i = 0; i <@Model.CarImageUrls.Count; i++)
+                {
+               <tr>
+                   <td>
+                       @Html.EditorFor(x => x.CarImageUrls[i], new {htmlAttributes = new {@class="form-control"}})
+                       
+                   </td>
+                 <td>
+                        @if(Model.CarImageUrls[i] == "")
+                        {
+                            <button id="btnadd-@i" type="button" class="btn btn-small btn-secondary visible"
+                            onclick="AddItem(this)">Add</button>
+                            <button id="btnremove-@i" type="button" class="btn btn-small btn-danger invisible"
+                            onclick="DeleteItem(this)">Delete</button>
+                        }
+                        else{
+                            <button id="btnremove-@i" type="button" class="btn btn-small btn-secondary visible"
+                            onclick="DeleteItem(this)">Delete</button>
+                            }
+                  </td>
+                            
+
+
+               </tr>   
+               }
+            </tbody>
+        </table>
+        
+
+        <input type="hidden" id="hdnLastIndex" value="0" />
+        </div>
+
+        
+
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+     
+
+    
+
+
+
+
+<div>
+<a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+
+    function DeleteItem(btn){
+        $(btn).closest("tr").remove();
+    }
+    
+    function AddItem(btn){
+        var table = document.getElementById("ExpTable");
+        var rows = table.getElementsByTagName("tr");
+
+        var rowOuterHtml = rows[rows.length - 1].outerHTML;
+
+        var lastrowIdx = document.getElementById("hdnLastIndex").value;
+        var nextrowIdx = eval(lastrowIdx) + 1;
+        document.getElementById("hdnLastIndex").value = nextrowIdx;
+
+        rowOuterHtml = rowOuterHtml.replaceAll("_" + lastrowIdx + "_", "_" + nextrowIdx + "_");
+        rowOuterHtml = rowOuterHtml.replaceAll("[" + lastrowIdx + "]", "[" + nextrowIdx + "]");
+        rowOuterHtml = rowOuterHtml.replaceAll("-" + lastrowIdx , "-" + nextrowIdx);
+
+        var newRow = table.insertRow();
+        newRow.innerHTML = rowOuterHtml;
+
+        var btnAddID = btn.id;
+        console.log(btnAddID);
+        var btnDeleteid = btnAddID.replaceAll("btnadd", "btnremove");
+        console.log(btnDeleteid);
+
+        var delbtn = document.getElementById(btnDeleteid);
+        delbtn.classList.add("visible");
+        delbtn.classList.remove("invisible");
+        
+        var addbtn = document.getElementById(btnAddID);
+        addbtn.classList.remove("visible");
+        addbtn.classList.add("invisible");
+
+    }
+
+</script>
+}
+  
+  
+  

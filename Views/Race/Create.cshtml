@@ -1,0 +1,50 @@
+﻿@using Formula1.ViewModels
+@model CreateRaceViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    @*<input type="hidden" id="UserId" name="UserId" asp-for="UserId" />*@
+  <div class="form-group">
+    <label asp-for="Name">Name</label>
+    <input asp-for="Name" class="form-control" placeholder="Name">
+    <span asp-validation-for="Name" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="LapNumber">Laps</label>
+    <input asp-for="LapNumber" class="form-control" placeholder="LapNumber">
+    <span asp-validation-for="LapNumber" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="TrackId">Track</label>
+    <select asp-for="TrackId" class="form-control form-control-lg">
+        <option value="">Select a track</option>
+        @foreach(var item in Model.Tracks){
+            <option value="@item.Id">@item.Name</option>
+        }
+                        </select>
+    <span asp-validation-for="TrackId" class="text-danger"></span>
+  </div>
+   <div class="form-group">
+    <label asp-for="Year">Year</label>
+    <input asp-for="Year" class="form-control" placeholder="Year">
+    <span asp-validation-for="Year" class="text-danger"></span>
+  </div>
+   <div class="form-group">
+    <label asp-for="Month">Month</label>
+    <input asp-for="Month" class="form-control" placeholder="Month">
+    <span asp-validation-for="Month" class="text-danger"></span>
+  </div>
+   <div class="form-group">
+    <label asp-for="Day">Day</label>
+    <input asp-for="Day" class="form-control" placeholder="Day">
+    <span asp-validation-for="Day" class="text-danger"></span>
+  </div>
+    
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  
+  
+  

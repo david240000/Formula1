@@ -1,0 +1,36 @@
+﻿@model Race
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">@Model.Name
+    </h1>
+  
+    <!-- Portfolio Item Row -->
+    <div class="row">
+  
+      <div class="col-md-8">
+        <img class="img-fluid" style="background-color: gold" src="@Model.Track.Image" width="100%" height="100%"alt="">
+      </div>
+  
+      <div class="col-md-4">
+        <h3 class="my-3">@Model.Name</h3>
+        <p>@Model.LapNumber laps</p>
+        <h3 class="my-3">Date</h3>
+        <h3>@Model.Year/@Model.Month/@Model.Day</h3>
+        <h3>Track Details</h3>
+        <a class="nav-link text-dark" asp-controller="track" asp-action="Detail" asp-route-id="@Model.Track.Id">@Model.Track.Name <small class="text-muted"><img class="img-fluid border border-dark " src="@Model.Track.Nationality.Flag" width="40" height="20" alt=""></small></a>
+      </div>
+  
+    </div>
+    <!-- /.row -->
+  
+  </div>
+  <!-- /.container -->
